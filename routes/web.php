@@ -11,10 +11,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
-Route::get('/users/create', [UserController::class, 'create']);
-Route::post('/users', [UserController::class, 'store']);
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.delete');
 
 Route::get('/post', [PostController::class, 'index'])->name('post.index');
 Route::get('/post/create', [PostController::class, 'create'])->name('post.create');

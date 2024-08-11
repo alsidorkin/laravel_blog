@@ -24,6 +24,9 @@
                     <a class="nav-link" href="{{ route('main.index') }}">Main</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('post.index') }}">Posts</a>
                 </li>
                 <li class="nav-item">
