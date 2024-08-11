@@ -9,99 +9,57 @@ class PostController extends Controller
    public function index(){
 
     $posts=Post::all();
-   // $posts=Post::where('is_published',0)->first();
-    //  foreach($posts as $post){
-    // dump($post);
-    // return 'this is my page!!!!';
     return view('posts/index',compact('posts'));
-    // }
 }
 
 public function create(){
-
-    $created_at=new \DateTime();
-    $updated_at=new \DateTime();
-    $postsArr=[
-['title'=>'love',
-'content'=>'love is a best ',
-'image'=>'lovepath',
-'likes'=>99999,
-'is_published'=>1,
-'created_at'=>$created_at,
-'updated_at'=>$updated_at,
-],
-
-['title'=>'love',
-'content'=>'love is a best ',
-'image'=>'lovepath',
-'likes'=>99999,
-'is_published'=>1,
-'created_at'=>$created_at,
-'updated_at'=>$updated_at,
-]
-    ];
-foreach($postsArr as $item){
-    // dd($item);
-    Post::create($item);
-}
-   
-    
+   $posts='';
+return view('posts/create',compact('posts'));
 }
 
-public function update(){
+public function store(){
 
-    $post=Post::find(1);
-    // dd($post);
-
-    $created_at=new \DateTime();
-    $updated_at=new \DateTime();
-    $postsArr=[
-['title'=>'love',
-'content'=>'love is a best ',
-'image'=>'lovepath',
-'likes'=>99999,
-'is_published'=>1,
-'created_at'=>$created_at,
-'updated_at'=>$updated_at,
-],
-
-// ['title'=>'love',
-// 'content'=>'love is a best ',
-// 'image'=>'lovepath',
-// 'likes'=>99999,
-// 'is_published'=>1,
-// 'created_at'=>$created_at,
-// 'updated_at'=>$updated_at,
-// ]
-    ];
-// foreach($postsArr as $item){
-    // dd($item);
-    $post->update([
-    'title'=>'love',
-    'content'=>'love is a best ',
-    'image'=>'lovepath',
-    'likes'=>99999,
-    'is_published'=>1,
-    'created_at'=>$created_at,
-    'updated_at'=>$updated_at,
+    $data=request()->validate([
+        'title'=>'string',
+        'content'=>'string',
+        'image'=>'string',
+        'created_at'=>'timezone',
+     
     ]);
-    dd('update');
-// }
    
-    
+    $data['is_published'] = 0;
+   Post::create($data);
+return redirect()->route('post.index');
 }
 
-public function delete(){
 
-    $post=Post::withTrashed()->find(1);
-    $post->restore();
-    // dd($post);
 
+public function show(Post $post){
+return view('posts/show',compact('post'));
+}
+
+public function edit(Post $post){
+return view('posts/edit',compact('post'));
+}
+
+
+public function update(Post $post){
+
+    $data=request()->validate([
+      'title' => 'string',
+        'content' => 'string',
+        'image' => 'string',
+        'likes' => 'nullable|integer',
+        'is_published' => 'nullable|boolean',
+        
+    ]);
+        $post->update($data);  
+   return redirect()->route('post.show',$post->id);
+}
+
+public function destroy(Post $post){
     $post->delete();
-    dd('delete');
-
-   
-    
+    return redirect()->route('post.index');   
 }
 
 
@@ -136,8 +94,6 @@ public function firstOrCreate(){
 }
 
 
-
-
 public function updateOrCreate(){
     $created_at=new \DateTime();
     $updated_at=new \DateTime();
@@ -166,7 +122,6 @@ public function updateOrCreate(){
 
    dump($post->content);
    dd('finish');
-}
-
+  }
 
 }
