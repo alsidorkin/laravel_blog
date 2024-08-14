@@ -11,6 +11,7 @@
       <th scope="col">Image</th>
       <th scope="col">Likes</th>
       <th scope="col">is_published</th>
+      <th scope="col">category_id</th>
       <th scope="col">created_at</th>
       <th scope="col">updated_at</th>
       <th scope="col">action</th>
@@ -28,6 +29,7 @@
       <td>{{$post->image}}</td>
       <td>{{$post->likes}}</td>
       <td>{{$post->is_published}}</td>
+      <td>{{$post->category_id}}</td>
       <td>{{$post->created_at}}</td>
       <td>{{$post->updated_at}}</td>
       <td>

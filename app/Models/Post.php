@@ -13,10 +13,11 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
-        'image',
+        'image',      
         'likes',
         'is_published',
         'created_at',
         'updated_at',
+        'category_id',  
     ];
 }

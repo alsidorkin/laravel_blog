@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Date;
 class PostController extends Controller
@@ -13,8 +14,9 @@ class PostController extends Controller
 }
 
 public function create(){
-   $posts='';
-return view('posts/create',compact('posts'));
+    $categories = Category::all();
+   
+return view('posts/create',compact('categories'));
 }
 
 public function store(){
@@ -23,10 +25,11 @@ public function store(){
         'title'=>'string',
         'content'=>'string',
         'image'=>'string',
-        'created_at'=>'timezone',
-     
-    ]);
-   
+        'category_id' => 'nullable|exists:categories,id',
+        'created_at'=>'timezone',  
+    ]);  
+    // dd($data['category_id']);
+    
     $data['is_published'] = 0;
    Post::create($data);
 return redirect()->route('post.index');
@@ -39,7 +42,10 @@ return view('posts/show',compact('post'));
 }
 
 public function edit(Post $post){
-return view('posts/edit',compact('post'));
+    $categories = Category::all();
+
+    // dd($categories);
+return view('posts/edit',compact('post', 'categories'));
 }
 
 
@@ -49,6 +55,7 @@ public function update(Post $post){
       'title' => 'string',
         'content' => 'string',
         'image' => 'string',
+        'category_id' => 'nullable|exists:categories,id',
         'likes' => 'nullable|integer',
         'is_published' => 'nullable|boolean',
         

@@ -12,6 +12,15 @@
     <textarea class="form-control" name="content" id="content">{{$post->content}}</textarea>
   </div>
   <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select name="category_id" class="form-select" id="category">
+        <option value="">Select a category</option>
+        @foreach($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->title }}</option>
+        @endforeach
+    </select>
+  </div>
+  <div class="mb-3">
     <label for="like" class="form-label">likes</label>
     <input type="number" value="{{$post->likes}}" name="likes" class="form-control" id="likes">
   </div>

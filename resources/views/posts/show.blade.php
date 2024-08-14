@@ -8,6 +8,7 @@
   <li class="list-group-item">image: {{$post->image}}</li>
   <li class="list-group-item">likes: {{$post->likes}}</li>
   <li class="list-group-item">is_published: {{$post->is_published}}</li>
+  <li class="list-group-item">category_id: {{$post->category_id}}</li>
   <li class="list-group-item">created_at: {{$post->created_at}}</li>
   <li class="list-group-item">updated_at: {{$post->updated_at}}</li>
 </ul>
@@ -18,6 +19,5 @@
     @method('delete')
     <input type="submit" value="Delete" class="btn btn-danger">
 </form>
-<a href="">delete</a>
 
 @endsection
